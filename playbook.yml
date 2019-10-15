@@ -13,3 +13,6 @@
    - name: ensure template file is copy
      template: src=template.txt dest=~/template.txt
      when: var_test is defined
+- hosts: webserver
+  tasks:
+  - import_tasks: common_tasks.yml
