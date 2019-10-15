@@ -2,3 +2,15 @@
   tasks:
     - name: ensure vim is at the latest version
       apt: name=vim state=latest
+- hosts: nodes
+  tasks:
+   - name: ensure vim is at the latest version
+     apt: name=vim state=latest
+   - name: ensure htop is at the latest version
+     apt: name=htop state=latest
+     become: true
+     notify:
+       - test handler
+  handlers:
+   - name: test handler
+     debug: msg="Handler de test"
