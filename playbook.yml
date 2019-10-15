@@ -10,17 +10,17 @@
      file: path=/home/vagrant/cmd-test.txt state=absent
    - name: ensure vim is at the latest version
      apt: name=vim state=latest
+     when: ansible_os_family == "Debian"
      register: vim_installed
    - name: ensure htop is at the latest version
      apt: name=htop state=latest
      become: true
-     when: vim_installed is failed
+     when: ansible_os_family == "Debian"  and vim_installed is succeeded
      notify:
        - test handler
-   - name: ensure bashrc template file is copy
-     template: src=.bashrc dest=~/.bashrc
-   - name: source bashrc
-     shell: ". ~/.bashrc"
+   - name: ensure template file is copy
+     template: src=template.txt dest=~/template.txt
+     when: var_test is defined
   handlers:
      - name: test handler
        debug: msg="Handler de test"
