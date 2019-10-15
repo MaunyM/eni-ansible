@@ -18,3 +18,8 @@
   handlers:
      - name: test handler
        debug: msg="Handler de test"
+- hosts: webserver
+  tasks:
+    - name: install Apache
+      apt: name=apache2 state=latest
+      become: true
