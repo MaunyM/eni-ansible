@@ -1,6 +1,6 @@
 controller ansible_connection=local
-node1 ansible_ssh_host=172.17.177.21 ansible_ssh_private_key_file=/vagrant/.vagrant/machines/node1/virtualbox/private_key var_test="Variable Test Node 1"
-node2 ansible_ssh_host=172.17.177.22 ansible_ssh_private_key_file=/vagrant/.vagrant/machines/node2/virtualbox/private_key var_test="Variable Test Node 2"
+node1 ansible_ssh_host=172.17.177.21 ansible_ssh_private_key_file=/vagrant/.vagrant/machines/node1/virtualbox/private_key
+node2 ansible_ssh_host=172.17.177.22 ansible_ssh_private_key_file=/vagrant/.vagrant/machines/node2/virtualbox/private_key
 webdev ansible_ssh_host=172.17.177.23 ansible_ssh_private_key_file=/vagrant/.vagrant/machines/webdev/virtualbox/private_key
 [webserver]
 webdev
@@ -9,6 +9,3 @@ node[1:2]
 [ansibletp:children]
 webserver
 nodes
-[nodes:vars]
-var_group_test="Variable group : nodes"
-var_test="Variables test NODES"
