@@ -4,6 +4,10 @@
       apt: name=vim state=latest
 - hosts: nodes
   tasks:
+   - name: copy a test file
+     copy: src=cmd-test.txt dest=/home/vagrant
+   - name: delete a test file
+     file: path=/home/vagrant/cmd-test.txt state=absent
    - name: ensure vim is at the latest version
      apt: name=vim state=latest
    - name: ensure htop is at the latest version
@@ -12,5 +16,5 @@
      notify:
        - test handler
   handlers:
-   - name: test handler
-     debug: msg="Handler de test"
+     - name: test handler
+       debug: msg="Handler de test"
