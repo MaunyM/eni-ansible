@@ -23,3 +23,12 @@
     - name: install Apache
       apt: name=apache2 state=latest
       become: true
+    - name: Start service httpd, if not started
+      service:
+        name: apache2
+        state: started
+      notify:
+        - copy handler
+  handlers:
+    - name: copy handler
+      copy: src=cmd-test.txt dest=/home/vagrant
