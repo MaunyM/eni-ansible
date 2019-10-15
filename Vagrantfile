@@ -1,5 +1,11 @@
 Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/trusty64"
+  config.vm.define "node1" do |machine|
+    machine.vm.network "private_network", ip: "172.17.177.21"
+  end
+  config.vm.define "node2" do |machine|
+    machine.vm.network "private_network", ip: "172.17.177.22"
+  end
   config.vm.define 'controller' do |machine|
     machine.vm.network "private_network", ip: "172.17.177.11"
     config.vm.provision "file", source: "ansible.cfg", destination:"/home/vagrant/.ansible.cfg"
