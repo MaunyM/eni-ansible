@@ -9,3 +9,6 @@ node[1:2]
 [ansibletp:children]
 webserver
 nodes
+[nodes:vars]
+var_group_test="Variable group : nodes"
+var_test="Variables test NODES"
