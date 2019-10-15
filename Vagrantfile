@@ -16,6 +16,7 @@ Vagrant.configure("2") do |config|
     config.vm.provision "file", source: "group_vars/nodes.yml", destination:"/home/vagrant/group_vars/nodes.yml"
     config.vm.provision "file", source: "host_vars/node1.yml", destination:"/home/vagrant/host_vars/node1.yml"
     config.vm.provision "file", source: "host_vars/node2.yml", destination:"/home/vagrant/host_vars/node2.yml"
+    config.vm.provision "file", source: "template.txt", destination:"/home/vagrant/template.txt"
     machine.vm.provision :ansible_local do |ansible|
       ansible.playbook = "playbook.yml"
       ansible.verbose = true

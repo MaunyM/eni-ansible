@@ -1,0 +1,1 @@
+Groupe {{var_group_test}}
