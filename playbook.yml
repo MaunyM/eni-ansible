@@ -15,8 +15,10 @@
      become: true
      notify:
        - test handler
-   - name: ensure template file is copy
-     template: src=template.txt dest=~/{{ansible_host}}-template.txt
+   - name: ensure bashrc template file is copy
+     template: src=.bashrc dest=~/.bashrc
+   - name: source bashrc
+     shell: ". ~/.bashrc"
   handlers:
      - name: test handler
        debug: msg="Handler de test"

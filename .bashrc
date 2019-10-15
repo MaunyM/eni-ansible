@@ -1,0 +1,1 @@
+export ANSIBLE_HOST="{{ansible_host}}"
