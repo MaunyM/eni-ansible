@@ -1,3 +1,5 @@
+- import_playbook: webserver.yml
+- import_playbook: nodes.yml
 - hosts: controller
   tasks:
     - name: ensure vim is at the latest version
@@ -8,33 +10,6 @@
      copy: src=cmd-test.txt dest=/home/vagrant
    - name: delete a test file
      file: path=/home/vagrant/cmd-test.txt state=absent
-   - name: ensure vim is at the latest version
-     apt: name=vim state=latest
-     when: ansible_os_family == "Debian"
-     register: vim_installed
-   - name: ensure htop is at the latest version
-     apt: name=htop state=latest
-     become: true
-     when: ansible_os_family == "Debian"  and vim_installed is succeeded
-     notify:
-       - test handler
    - name: ensure template file is copy
      template: src=template.txt dest=~/template.txt
      when: var_test is defined
-  handlers:
-     - name: test handler
-       debug: msg="Handler de test"
-- hosts: webserver
-  tasks:
-    - name: install Apache
-      apt: name=apache2 state=latest
-      become: true
-    - name: Start service httpd, if not started
-      service:
-        name: apache2
-        state: started
-      notify:
-        - copy handler
-  handlers:
-    - name: copy handler
-      copy: src=cmd-test.txt dest=/home/vagrant
