@@ -1,10 +1,10 @@
-- import_playbook: webserver.yml
-- import_playbook: nodes.yml
 - hosts: controller
   tasks:
     - name: ensure vim is at the latest version
       apt: name=vim state=latest
 - hosts: nodes
+  roles:
+    - common
   tasks:
    - name: copy a test file
      copy: src=cmd-test.txt dest=/home/vagrant
@@ -14,5 +14,7 @@
      template: src=template.txt dest=~/template.txt
      when: var_test is defined
 - hosts: webserver
+  roles:
+    - common
   tasks:
   - import_tasks: common_tasks.yml
