@@ -1,0 +1,25 @@
+- hosts: server
+  roles:
+    - common
+- hosts: webserver
+  tasks :
+    - name: Create docker directory
+      file: path=~/docker/ state=directory
+    - name: Copy Dockerfile
+      copy: src=docker/Dockerfile dest=~/docker/Dockerfile
+    - name: Build Docker image from Dockerfile
+      become: true
+      docker_image:
+        name: web
+        build:
+          path: docker
+          pull: yes
+        source: build
+        state: present
+    - name: Running the container
+      become: true
+      docker_container:
+        name: web
+        image: web:latest
+        ports:
+          - "80:80"

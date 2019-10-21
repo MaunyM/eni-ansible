@@ -1,0 +1,22 @@
+- name: Install required system packages
+  apt: name={{ item }} state=latest update_cache=yes
+  become: true
+  loop: [ 'apt-transport-https', 'ca-certificates', 'curl', 'software-properties-common', 'gnupg-agent']
+- name: Add Docker GPG apt Key
+  become: true
+  shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+- name: Add Docker Repository
+  become: true
+  apt_repository:
+    repo: deb https://download.docker.com/linux/ubuntu disco stable
+    state: present
+- name: ensure docker is at the latest version
+  become: true
+  apt: name=docker-ce state=latest update_cache=yes
+- name: Install pip
+  become: true
+  apt: name=python3-pip state=present
+- name: Install Docker Module for Python
+  become: true
+  pip:
+     name: docker
